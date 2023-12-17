@@ -1,15 +1,13 @@
-from collections import deque
+import sys
+N = int(input())
 
-t = int(input())
+for _ in range(N):
+    str = sys.stdin.readline().rstrip()
+    words = list(str.split())
+    reverse_words = []
 
-for _ in range(t):
-    answer = []
-    sentence = deque(map(str, input().split()))
+    for word in words:
+        reverse_words.append(word[::-1])
 
-    for word in sentence:
-        alphabet = deque(word)
-        alphabet.reverse()
-
-        answer.append(''.join(alphabet))
-
-    print(' '.join(answer))
+    answer = " ".join(reverse_words)
+    print(answer)
