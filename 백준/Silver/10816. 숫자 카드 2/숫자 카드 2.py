@@ -1,34 +1,23 @@
-N = int(input())
-A = list(map(int, input().split()))
-A.sort()
+from bisect import bisect_left, bisect_right
+import sys
 
-M = int(input())
+input = sys.stdin.readline
+
+N = input().rstrip()
+
+A = list(map(int, input().split()))
+
+M = input().rstrip()
+
 target_list = list(map(int, input().split()))
 
-def lower_bound(arr, target):
-    left, right = 0, len(arr)
-    while left < right:
-        mid = (left + right) // 2
-        if arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid
-    return left
+A.sort()
 
-def upper_bound(arr, target):
-    left, right = 0, len(arr)
-    while left < right:
-        mid = (left + right) // 2
-        if arr[mid] <= target:
-            left = mid + 1
-        else:
-            right = mid
-    return left
+def count_by_range(a, left_value, right_value):
+    right_index = bisect_right(a, right_value)
+    left_index = bisect_left(a,left_value)
 
-result = []
-for target in target_list:
-    lower = lower_bound(A, target)
-    upper = upper_bound(A, target)
-    result.append(str(upper - lower))
+    return right_index - left_index
 
-print(' '.join(result))
+for i in range(len(target_list)):
+    print(count_by_range(A, target_list[i], target_list[i]), end=' ')
