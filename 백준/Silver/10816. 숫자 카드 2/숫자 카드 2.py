@@ -1,4 +1,3 @@
-from collections import Counter
 import sys
 
 input = sys.stdin.readline
@@ -11,10 +10,16 @@ M = input().rstrip()
 
 target_list = list(map(int, input().split()))
 
-count = Counter(A)
+hash = {}
 
-for i in range(len(target_list)):
-    if target_list[i] in count:
-        print(count[target_list[i]], end=' ')
+for i in A:
+    if i in hash:
+        hash[i] += 1
+    else:
+        hash[i] = 1
+
+for i in target_list:
+    if i in hash:
+        print(hash[i], end=' ')
     else:
         print(0, end=' ')
