@@ -1,38 +1,14 @@
-import sys
-
-input = sys.stdin.readline
+import sys 
 
 N = int(input())
 
-n_list = list(map(int, input().split()))
+# 탐색 시간 줄이기 위해 set으로 받음
+n_list = set(map(int, input().split()))
 
 M = int(input())
 
 target_list = list(map(int, input().split()))
 
-n_list.sort()
-
-for i in range(M):
-
-    is_exist = 0
-
-    target = target_list[i]
-
-    start = 0
-    end = len(n_list) - 1
-
-    while start <= end:
-        mid_index = (start + end) // 2
-        mid_value = n_list[mid_index]
-
-        if mid_value < target:
-            start = mid_index + 1
-
-        elif mid_value > target:
-            end = mid_index - 1
-
-        else:
-            is_exist = 1
-            break
-
-    print(is_exist)
+# target_list 각 원소별 탐색
+for target in target_list:   
+	print(1) if target in n_list else print(0)
