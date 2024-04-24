@@ -1,38 +1,47 @@
-from sys import stdin
 from collections import deque
-input = stdin.readline 
+import sys
 
-dx = [1, -1, 0, 0, 1, -1, 1, -1] # 그래프의 탐색 방향
-dy = [0, 0, 1, -1, 1, -1, -1, 1]
+input = sys.stdin.readline
 
-def bfs(x, y):
-    que = deque()
-    que.append((x, y))
+dx = [1, -1, 0, 0, -1, -1, 1, 1]
+dy = [0, 0, 1, -1, 1, -1, 1, -1]
+
+def BFS(x, y):
+    # BFS를 위해 queue 생성
+    queue = deque()
+    queue.append([x, y])
+
+    # 방문한 집 0으로 변환
     graph[y][x] = 0
-    while que:
-       a, b = que.pop()
-       for i in range(8):
-           ny = b + dy[i]
-           nx = a + dx[i]
-           if 0<=nx<m and 0<=ny<n and graph[ny][nx] == 1: # 그래프의 탐색조건
-               que.append((nx, ny))
-               graph[ny][nx] = 0
 
+    while queue:
+        x, y = queue.popleft()
 
-result = []
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            if 0 <= nx < w and 0 <= ny < h and graph[ny][nx] == 1:
+                queue.append([nx, ny])
+                graph[ny][nx] = 0
+
 while True:
-    res = 0
-    m, n = map(int, input().split())
-    if n == 0 and m == 0:
+    w, h = map(int, input().split())
+
+    if w == 0 and h == 0:
         break
-    graph = [list(map(int, input().split())) for _ in range(n)]
 
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j] == 1: # 해당지점이 땅인 경우만 탐색
-                bfs(j, i)
-                res += 1 # 땅인경우 결과값 +1
-    result.append(res) # 결과 리스트에 추가
+    graph = []
 
-for i in result:
-    print(i) # 결과 출력
+    total_count = 0
+
+    for i in range(h):
+        graph.append(list(map(int, input().split())))
+
+    for j in range(h):
+        for k in range(w):
+            if graph[j][k] == 1:
+                BFS(k, j)
+                total_count += 1
+    print(total_count)
+
