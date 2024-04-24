@@ -1,2 +1,5 @@
 # Algorithm : Baekjoon & Programmers
-This is a auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+
+ <img align="center" src="http://mazassumnida.wtf/api/v2/generate_badge?boj=dustmqwnd2ya"/>
+
+ 👍 노력하고 있습니다~!
