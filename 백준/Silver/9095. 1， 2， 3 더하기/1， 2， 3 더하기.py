@@ -14,19 +14,23 @@ for _ in range(T):
     dp = [0] * (n+1)
 
     # 4. 점화식 계산이 필요 없는 경우를 고려하여 미리 계산해준다.
-    for i in range(1, n + 1):
-        if i == 1:
-            dp[i] = 1
+    if n == 1:
+        print(1)
 
-        elif i == 2:
-            dp[i] = 2
+    elif n == 2:
+        print(2)
 
-        elif i == 3:
-            dp[i] = 4
+    elif n == 3:
+        print(4)
 
-        # 5. 점화식을 정의한다.
-        else:
+    # 5. 점화식을 정의한다.
+    else:
+        dp[1] = 1   # 1
+        dp[2] = 2   # 1+1, 2
+        dp[3] = 4   # 1+1+1, 1+2, 2+1, 3
+
+        for i in range(4, n+1):
             dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
 
-    # 6. d[n]을 출력한다.
-    print(dp[n])
+        # 6. d[n]을 출력한다.
+        print(dp[n])
