@@ -5,7 +5,7 @@ input =  sys.stdin.readline
 # 1. N, M 입력받는다.
 N, M = map(int, input().split())
 
-# 2. 보석 개수를 입력받느다.
+# 2. 보석 개수를 입력받는다.
 gems = [int(input().rstrip()) for _ in range(M)]
 
 # 3. 이분탐색을 정의한다.
