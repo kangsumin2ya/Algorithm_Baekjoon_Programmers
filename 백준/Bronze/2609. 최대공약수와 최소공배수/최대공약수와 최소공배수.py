@@ -21,8 +21,23 @@ a, b = map(int, input().split())
 # print(gcd(a, b))
 # print(lcm(a, b))
 
-#### math 이용
-import math
 
-print(math.gcd(a,b))
-print(math.lcm(a,b))
+#### math 이용
+# import math
+#
+# print(math.gcd(a,b))
+# print(math.lcm(a,b))
+
+
+#### 유클리드 호제법
+def Euclidean_gcd(a, b):
+    while(b):
+        a, b = b, a % b
+    return a
+
+def Euclidean_lcm(a, b):
+    i = (a*b) // Euclidean_gcd(a, b)
+    return i
+
+print(Euclidean_gcd(a, b))
+print(Euclidean_lcm(a, b))
