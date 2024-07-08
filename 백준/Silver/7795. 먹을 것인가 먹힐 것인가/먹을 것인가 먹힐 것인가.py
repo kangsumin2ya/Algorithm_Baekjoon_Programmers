@@ -2,6 +2,7 @@ import sys
 
 input = sys.stdin.readline
 
+
 # 1. T 입력
 T = int(input())
 
@@ -19,21 +20,12 @@ for _ in range(T):
     A.sort()
     B.sort()
 
-    # 6. 이분 탐색
+    # 6. 투 포인터
     count = 0
-    for a in A:
-        start, end = 0, M-1
-        # 6-1. 이분 탐색 종료 조건
-        while start <= end:
-            mid = (start + end) // 2
-            # B[mid]가 a보다 작은 요소를 더 찾기 위해 배열의 오른쪽 검사
-            if B[mid] < a:
-                start = mid + 1
-            # B[mid]가 a보다 작은 요소를 더 찾기 위해 배열의 왼쪽 검사
-            else:
-                end = mid - 1
-        # 최종 start : B에서 a보다 작은 요소의 개수 의미
-        count += start
+    p2 = 0
+    for p1 in range(N):
+        while p2 < M and A[p1] > B[p2]:
+            p2 += 1
+        count += p2
 
-    # 7. 원하는 형식의 결과 출력
     print(count)
