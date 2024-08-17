@@ -2,25 +2,26 @@ import sys
 
 input = sys.stdin.readline
 
+# 계단 수 입력
 n = int(input())
 
-# 1. dp 테이블 정의
-d = [0] * (n+1)
+# 계단 점수 입력
+scores = [int(input()) for _ in range(n)]
 
-# 2. 계단 점수 입력
-scores = [0]
+# dp 테이블 정의
+dp = [0] * (n + 1)
 
-for _ in range(n):
-    scores.append(int(input()))
-
-if len(scores) <= 2:
-    print(sum(scores))
-
+if n == 1:
+    print(scores[0])
+elif n == 2:
+    print(scores[0] + scores[1])
 else:
-    d[1] = scores[1]
-    d[2] = scores[1] + scores[2]
+    # dp 초기값 채우기
+    dp[1] = scores[0]
+    dp[2] = scores[0] + scores[1]
 
-    for i in range(3, n+1):
-        d[i] = max(d[i-3]+scores[i-1]+scores[i], d[i-2] + scores[i])
+    # dp 값 채우기
+    for i in range(3, n + 1):
+        dp[i] = max(dp[i - 2] + scores[i - 1], dp[i - 3] + scores[i - 2] + scores[i - 1])
 
-    print(d[-1])
+    print(dp[-1])
