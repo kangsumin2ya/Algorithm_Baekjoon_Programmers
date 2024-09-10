@@ -1,47 +1,57 @@
-from collections import deque
 import sys
+from collections import deque
 
 input = sys.stdin.readline
 
-dx = [1, -1, 0, 0, -1, -1, 1, 1]
-dy = [0, 0, 1, -1, 1, -1, 1, -1]
 
-def BFS(x, y):
-    # BFS를 위해 queue 생성
-    queue = deque()
-    queue.append([x, y])
-
-    # 방문한 집 0으로 변환
-    graph[y][x] = 0
+# BFS 정의
+def bfs(x, y):
+    queue = deque([(x, y)])
+    # 방문 처리
+    visited[x][y] = 1
 
     while queue:
         x, y = queue.popleft()
 
+        # 이동시키기
         for i in range(8):
-            nx = x + dx[i]
-            ny = y + dy[i]
+            nx, ny = x + directions[i][0], y + directions[i][1]
 
-            if 0 <= nx < w and 0 <= ny < h and graph[ny][nx] == 1:
-                queue.append([nx, ny])
-                graph[ny][nx] = 0
+            # 이동 위치가 범위 내이고 방문하지 않았으며 땅이라면 탐색 지속
+            if 0 <= nx < h and 0 <= ny < w and not visited[nx][ny] and graph[nx][ny]:
+                queue.append((nx, ny))
+                visited[nx][ny] = 1
+
+
+# 8가지 이동 방향 정의
+directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
 while True:
+    # w, h 입력
     w, h = map(int, input().split())
 
+    # 입력에 0, 0 들어올 때까지 반복
     if w == 0 and h == 0:
         break
 
-    graph = []
+    else:
+        # 지도 정보 입력
+        graph = [list(map(int, input().split())) for _ in range(h)]
 
-    total_count = 0
+        # 방문 리스트 만들기
+        visited = [[0] * w for _ in range(h)]
 
-    for i in range(h):
-        graph.append(list(map(int, input().split())))
+        # 섬 개수 초기화
+        count = 0
 
-    for j in range(h):
-        for k in range(w):
-            if graph[j][k] == 1:
-                BFS(k, j)
-                total_count += 1
-    print(total_count)
+        # 전체 지도 탐색
+        for i in range(h):
+            for j in range(w):
+                # 땅을 찾았다면 BFS 수행
+                if graph[i][j] == 1 and not visited[i][j]:
+                    bfs(i, j)
+                    # 탐색 종료 후 개수 증가
+                    count += 1
 
+        # 결과 출력
+        print(count)
